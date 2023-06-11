@@ -1,67 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Assignment For Module-17: Query Builder
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+By: S M Ahaduzzaman
 
-## About Laravel
+## Questions & Answers
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Explain what Laravel's query builder is and how it provides a simple and elegant way to interact with databases.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Laravel's query builder is a feature that allows you to interact with databases in a simple and elegant way. It provides a fluent syntax for constructing and executing database queries, making it easier to work with databases in Laravel. The query builder's expressive methods and seamless integration with other Laravel features simplify database interactions and promote efficient and maintainable code.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. Write the code to retrieve the "excerpt" and "description" columns from the "posts" table using Laravel's query builder. Store the result in the $posts variable. Print the $posts variable.
 
-## Learning Laravel
+$posts = DB::table('posts')->select('excerpt', 'description')->get();
+return $posts;
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. Describe the purpose of the distinct() method in Laravel's query builder. How is it used in conjunction with the select() method?
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The distinct() method in Laravel's query builder is used to retrieve only unique values from a specific column or a combination of columns in the result set of a query. It eliminates duplicate rows from the query result.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+When used in conjunction with the select() method, distinct() modifies the behavior of the select() method by applying the "DISTINCT" keyword to the generated SQL query.
 
-## Laravel Sponsors
+$uniqueNames = DB::table('users')->select('name')->distinct()->get();
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4. Write the code to retrieve the first record from the "posts" table where the "id" is 2 using Laravel's query builder. Store the result in the $posts variable. Print the "description" column of the $posts variable.
 
-### Premium Partners
+$posts = DB::table('posts')->where('id', 2)->first();
+if ($posts) {
+    echo $posts->description;
+}
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+5. Write the code to retrieve the "description" column from the "posts" table where the "id" is 2 using Laravel's query builder. Store the result in the $posts variable. Print the $posts variable.
 
-## Contributing
+$posts = DB::table('posts')->where('id', 2)->pluck('description');
+print_r($posts);
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. Explain the difference between the first() and find() methods in Laravel's query builder. How are they used to retrieve single records?
 
-## Code of Conduct
+first() method: The first() method retrieves the first record that matches the query conditions. It returns an instance of the object representing the record or null if no matching record is found.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+$user = DB::table('users')->where('email', 'example@example.com')->first();
 
-## Security Vulnerabilities
+find() method: The find() method retrieves a record by its primary key. It expects the primary key value as an argument and returns an instance of the object representing the record or null if no matching record is found.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+$user = DB::table('users')->find(1);
 
-## License
+7. Write the code to retrieve the "title" column from the "posts" table using Laravel's query builder. Store the result in the $posts variable. Print the $posts variable.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# query-builder
+$posts = DB::table('posts')->pluck('title');
+print_r($posts);
+
+8. Write the code to insert a new record into the "posts" table using Laravel's query builder. Set the "title" and "slug" columns to 'X', and the "excerpt" and "description" columns to 'excerpt' and 'description', respectively. Set the "is_published" column to true and the "min_to_read" column to 2. Print the result of the insert operation.
+
+$result = DB::table('posts')->insert([
+    'title' => 'X',
+    'slug' => 'X',
+    'excerpt' => 'excerpt',
+    'description' => 'description',
+    'is_published' => true,
+    'min_to_read' => 2
+]);
+
+echo $result;
+
+9. Write the code to update the "excerpt" and "description" columns of the record with the "id" of 2 in the "posts" table using Laravel's query builder. Set the new values to 'Laravel 10'. Print the number of affected rows.
+
+$affectedRows = DB::table('posts')
+    ->where('id', 2)
+    ->update([
+        'excerpt' => 'Laravel 10',
+        'description' => 'Laravel 10'
+    ]);
+
+echo "Number of affected rows: " . $affectedRows;
+
+10. Write the code to delete the record with the "id" of 3 from the "posts" table using Laravel's query builder. Print the number of affected rows.
+
+$affectedRows = DB::table('posts')
+    ->where('id', 3)
+    ->delete();
+
+echo "Number of affected rows: " . $affectedRows;
+
+11. Explain the purpose and usage of the aggregate methods count(), sum(), avg(), max(), and min() in Laravel's query builder. Provide an example of each.
+	
+count() - It returns the number of records that match the query conditions.
+$count = DB::table('users')->where('status', 'active')->count();
+sum() - It calculates the sum of a specific column's values.
+$totalAmount = DB::table('orders')->sum('amount');
+avg() - It calculates the average (mean) of a specific column's values.
+$averageRating = DB::table('reviews')->where('product_id', 1)->avg('rating');
+max() - It retrieves the maximum value of a specific column.
+$maxPrice = DB::table('products')->max('price');
+min() - It retrieves the minimum value of a specific column.
+$minStock = DB::table('products')->min('stock');
+
+12. Describe how the whereNot() method is used in Laravel's query builder. Provide an example of its usage.
+
+The whereNot() method in Laravel's query builder is used to add a "not equal" condition to a query. It allows you to retrieve records that do not match a specific value or column.
+
+$users = DB::table('users') ->whereNot('status', 'active') ->get();
+
+13.Explain the difference between the exists() and doesntExist() methods in Laravel's query builder. How are they used to check the existence of records?
+
+exists() method: The exists() method checks if any records exist that match the specified query conditions. It returns true if at least one record is found, and false otherwise.
+
+$exists = DB::table('users')->where('status', 'active')->exists();
+
+doesntExist() method: The doesntExist() method checks if no records exist that match the specified query conditions. It returns true if no records are found, and false if at least one record is found.
+
+$doesntExist = DB::table('users')->where('status', 'inactive')->doesntExist();
+
+14.Write the code to retrieve records from the "posts" table where the "min_to_read" column is between 1 and 5 using Laravel's query builder. Store the result in the $posts variable. Print the $posts variable.
+
+$posts = DB::table('posts')
+    ->whereBetween('min_to_read', [1, 5])
+    ->get();
+
+print_r($posts);
+
+15.Write the code to increment the "min_to_read" column value of the record with the "id" of 3 in the "posts" table by 1 using Laravel's query builder. Print the number of affected rows.
+
+$affectedRows = DB::table('posts')
+    ->where('id', 3)
+    ->increment('min_to_read');
+
+echo "Number of affected rows: " . $affectedRows;
+
+
